@@ -25,8 +25,3 @@ repos:
     'types': [python]
     pass_filenames: false
     stages: [commit]
-
-  - id: freeze
-    name: freeze
-    entry: pip freeze > r.txt
-    language: python
