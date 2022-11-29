@@ -107,5 +107,5 @@ class BindService:
     ) -> dict:
         url = f"{bind_endpoint}/banks/{bank_id}/accounts/{account_id}/{view_id}/transaction-request-types/TRANSFER/transaction-requests"
         headers["Authorization"] = f"JWT :{bind_credential}"
-        response = requests.request("POST", url, json=payload,  headers=headers)
+        response = requests.request("POST", url, json=payload, headers=headers)
         return response.json()

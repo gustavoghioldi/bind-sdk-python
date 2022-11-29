@@ -24,7 +24,7 @@ Environment Variables
 =======
 ~~~~~~~~~~
 BIND_END_POINT => default: https://sandbox.bind.com.ar/v1
-BIND_USER => username 
+BIND_USER => username
 BIND_PASSWORD = password
 REDIS_CONNECTION => default: False
 ~~~~~~~~~~

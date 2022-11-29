@@ -20,9 +20,8 @@ repos:
   hooks:
   - id: unittest
     name: unittest
-    entry: python -m unittest discover 
+    entry: python -m unittest discover
     language: python
     'types': [python]
-    args: ["-p '*test.py'"] # Probably this option is absolutely not needed.
     pass_filenames: false
     stages: [commit]
