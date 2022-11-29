@@ -29,6 +29,12 @@ BIND_PASSWORD = password
 REDIS_CONNECTION => default: False
 ~~~~~~~~~~
 
+Unit Tests
+==========
+~~~~~~~~~~
+python -m coverage run -m unittest
+python -m coverage report
+~~~~~~~~~~
 ** ALFA (dont use?)
 
 by El Barba

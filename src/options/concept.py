@@ -1,8 +1,8 @@
-from enum import Enum, unique
+from enum import Enum , unique
 
 
 @unique
-class Concept(Enum):
+class Concept(str, Enum):
     ALQ = "ALQ"
     CUO = "CUO"
     EXP = "EXP"
