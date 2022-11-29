@@ -1,6 +1,7 @@
 import requests
 import logging
 import json
+from src.requests_payload.transfer_payload import TransferPayload
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +18,7 @@ class BindService:
         payload = json.dumps({"username": f"{username}", "password": f"{password}"})
 
         response = requests.request("POST", url, headers=headers, data=payload)
-        
+
         return response.json()
 
     @staticmethod
@@ -33,4 +34,78 @@ class BindService:
 
         response = requests.request("GET", url, headers=headers)
 
+        return response.json()
+
+    @staticmethod
+    def get_views(bind_credential: str, bind_endpoint: str, bank_id: int):
+        url = f"{bind_endpoint}/banks/{bank_id}/accounts"
+        headers["Authorization"] = f"JWT :{bind_credential}"
+        response = requests.request("GET", url, headers=headers)
+        return response.json()
+
+    @staticmethod
+    def get_accounts(
+        bind_credential: str, bind_endpoint: str, bank_id: int, view_id: str
+    ) -> dict:
+        url = f"{bind_endpoint}/banks/{bank_id}/accounts/{view_id}"
+        headers["Authorization"] = f"JWT :{bind_credential}"
+        response = requests.request("GET", url, headers=headers)
+        return response.json()
+
+    @staticmethod
+    def get_account(
+        account_id: str,
+        bind_credential: str,
+        bind_endpoint: str,
+        bank_id: int,
+        view_id: str,
+    ) -> dict:
+        url = f"{bind_endpoint}/banks/{bank_id}/accounts/{account_id}/{view_id}"
+        headers["Authorization"] = f"JWT :{bind_credential}"
+        response = requests.request("GET", url, headers=headers)
+        return response.json()
+
+    @staticmethod
+    def get_account_movements(
+        account_id: str,
+        bind_credential: str,
+        bind_endpoint: str,
+        bank_id: int,
+        view_id: str,
+    ) -> dict:
+        url = f"{bind_endpoint}/banks/{bank_id}/accounts/{account_id}/{view_id}/transactions"
+        headers["Authorization"] = f"JWT :{bind_credential}"
+        response = requests.request("GET", url, headers=headers)
+        return response.json()
+
+    @staticmethod
+    def get_account_by_alias(
+        alias: str, bind_credential: str, bind_endpoint: str
+    ) -> dict:
+        url = f"{bind_endpoint}/accounts/alias/{alias}"
+        headers["Authorization"] = f"JWT :{bind_credential}"
+        response = requests.request("GET", url, headers=headers)
+        return response.json()
+
+    @staticmethod
+    def get_account_by_cbu_cvu(
+        cbu_cvu: int, bind_credential: str, bind_endpoint: str
+    ) -> dict:
+        url = f"{bind_endpoint}/accounts/cbu/{cbu_cvu}"
+        headers["Authorization"] = f"JWT :{bind_credential}"
+        response = requests.request("GET", url, headers=headers)
+        return response.json()
+
+    @staticmethod
+    def send_transfer(
+        payload: TransferPayload,
+        account_id: str,
+        bind_credential: str,
+        bind_endpoint: str,
+        bank_id: int,
+        view_id: str,
+    ) -> dict:
+        url = f"{bind_endpoint}/banks/{bank_id}/accounts/{account_id}/{view_id}/transaction-request-types/TRANSFER/transaction-requests"
+        headers["Authorization"] = f"JWT :{bind_credential}"
+        response = requests.request("POST", url, json=payload,  headers=headers)
         return response.json()

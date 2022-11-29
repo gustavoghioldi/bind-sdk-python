@@ -1,8 +1,16 @@
 import logging
 
-from .settings import BIND_PASSWORD, BIND_USER, BIND_END_POINT, REDIS_CONNECTION
+from .settings import (
+    BIND_PASSWORD,
+    BIND_USER,
+    BIND_END_POINT,
+    REDIS_CONNECTION,
+    BANK_ID,
+    VIEW_ID,
+)
 from .services.bind_service import BindService
 from .services.cache_service import CacheService
+from .requests_payload.transfer_payload import TransferPayload
 
 logger = logging.getLogger(__name__)
 
@@ -22,3 +30,41 @@ class Sdk:
 
     def is_bancked(self, cuit: int) -> dict:
         return BindService.bancked_cuit(cuit, str(self.login()), BIND_END_POINT)
+
+    def get_views(self) -> dict:
+        return BindService.get_views(str(self.login()), BIND_END_POINT, BANK_ID)
+
+    def get_accounts(self) -> dict:
+        return BindService.get_accounts(
+            str(self.login()), BIND_END_POINT, BANK_ID, VIEW_ID
+        )
+
+    def get_account(self, account_id: str) -> dict:
+        return BindService.get_account(
+            account_id, str(self.login()), BIND_END_POINT, BANK_ID, VIEW_ID
+        )
+
+    def get_account_movements(self, account_id: str, query=None) -> dict:
+        return BindService.get_account_movements(
+            account_id, str(self.login()), BIND_END_POINT, BANK_ID, VIEW_ID
+        )
+
+    def get_account_details_by_alias(self, alias: str) -> dict:
+        return BindService.get_account_by_alias(
+            alias, str(self.login()), BIND_END_POINT
+        )
+
+    def get_account_details_by_cbu_cvu(self, cbu_cvu: int) -> dict:
+        return BindService.get_account_by_cbu_cvu(
+            cbu_cvu, str(self.login()), BIND_END_POINT
+        )
+
+    def send_transfer(self, payload: TransferPayload, account_sender_id: str):
+        return BindService.send_transfer(
+            payload,
+            account_sender_id,
+            str(self.login()),
+            BIND_END_POINT,
+            BANK_ID,
+            VIEW_ID,
+        )
