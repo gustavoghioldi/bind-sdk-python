@@ -1,7 +1,7 @@
 import unittest
 
-from src.options.concept import Concept
-from src.options.currency import Currency
+from bind_sdk.options.concept import Concept
+from bind_sdk.options.currency import Currency
 
 
 class TestOptions(unittest.TestCase):

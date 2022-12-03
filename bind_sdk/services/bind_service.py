@@ -1,7 +1,8 @@
 import requests
 import logging
 import json
-from src.requests_payload.transfer_payload import TransferPayload
+from bind_sdk.requests_payload.debin_payload import DebinPayload
+from bind_sdk.requests_payload.transfer_payload import TransferPayload
 
 logger = logging.getLogger(__name__)
 
@@ -98,7 +99,7 @@ class BindService:
 
     @staticmethod
     def send_transfer(
-        payload: TransferPayload,
+        payload: dict,
         account_id: str,
         bind_credential: str,
         bind_endpoint: str,
@@ -108,4 +109,60 @@ class BindService:
         url = f"{bind_endpoint}/banks/{bank_id}/accounts/{account_id}/{view_id}/transaction-request-types/TRANSFER/transaction-requests"
         headers["Authorization"] = f"JWT :{bind_credential}"
         response = requests.request("POST", url, json=payload, headers=headers)
+        return response.json()
+
+    @staticmethod
+    def get_transfers(
+        account_id: str,
+        bind_credential: str,
+        bind_endpoint: str,
+        bank_id: int,
+        view_id: str,
+    ) -> dict:
+        url = f"{bind_endpoint}/banks/{bank_id}/accounts/{account_id}/{view_id}/transaction-request-types/TRANSFER"
+        headers["Authorization"] = f"JWT :{bind_credential}"
+        response = requests.request("GET", url, headers=headers)
+        return response.json()
+
+    @staticmethod
+    def get_transfer(
+        transfer_id: str,
+        account_id: str,
+        bind_credential: str,
+        bind_endpoint: str,
+        bank_id: int,
+        view_id: str,
+    ) -> dict:
+        url = f"{bind_endpoint}/banks/{bank_id}/accounts/{account_id}/{view_id}/transaction-request-types/TRANSFER/{transfer_id}"
+        headers["Authorization"] = f"JWT :{bind_credential}"
+        response = requests.request("GET", url, headers=headers)
+        return response.json()
+
+    @staticmethod
+    def send_debin(
+        payload: dict,
+        account_id: str,
+        bind_credential: str,
+        bind_endpoint: str,
+        bank_id: int,
+        view_id: str,
+    ) -> dict:
+        url = f"{bind_endpoint}/banks/{bank_id}/accounts/{account_id}/{view_id}/transaction-request-types/DEBIN/transaction-requests"
+        headers["Authorization"] = f"JWT :{bind_credential}"
+        response = requests.request("POST", url, json=payload, headers=headers)
+        return response.json()
+
+    @staticmethod
+    def get_debins_by_status(
+        status: str,
+        account_id: str,
+        bind_credential: str,
+        bind_endpoint: str,
+        bank_id: int,
+        view_id: str,
+    ) -> dict:
+        url = f"{bind_endpoint}/banks/{bank_id}/accounts/{account_id}/{view_id}/transaction-request-types/DEBIN"
+        headers["Authorization"] = f"JWT :{bind_credential}"
+        headers["obp_status"] = status
+        response = requests.request("GET", url, headers=headers)
         return response.json()

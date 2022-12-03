@@ -1,6 +1,6 @@
 import unittest
 
-from src.helpers.is_alias import is_alias
+from bind_sdk.helpers.is_alias import is_alias
 
 
 class TestOptions(unittest.TestCase):

@@ -16,12 +16,12 @@ repos:
   hooks:
   - id: bandit
 
-- repo: local
-  hooks:
-  - id: unittest
-    name: unittest
-    entry: python -m unittest discover
-    language: python
-    'types': [python]
-    pass_filenames: false
-    stages: [commit]
+# - repo: local
+#   hooks:
+#   - id: unittest
+#     name: unittest
+#     entry: python -m unittest discover
+#     language: python
+#     'types': [python]
+#     pass_filenames: false
+#     stages: [commit]

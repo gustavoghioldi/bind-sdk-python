@@ -1,8 +1,9 @@
 # # import unittest
-# from src.sdk import Sdk
+from bind_sdk.sdk import Sdk
+from bind_sdk.requests_payload.debin_payload import DebinPayload
 
 
-# sdk = Sdk()
+sdk = Sdk()
 # # print(sdk.login(refresh=True))
 # # print(sdk.login(refresh=False))
 
@@ -29,14 +30,37 @@
 # # print(sdk.get_account_by_details_cbu_cvu("3220001801000020816200"))
 
 # # print(sdk.get_account_by_details_cbu_cvu("0000033802019012400010"))
-# from src.options.currency import Currency
+from bind_sdk.options.currency import Currency
 
-# from src.options.concept import Concept
+from bind_sdk.options.concept import Concept
 
-# from src.requests_payload.transfer_payload import TransferPayload
-# tpl = TransferPayload("coco1", "ELBARBACVU", Currency.ARS.value, 1000.21, "taest", Concept.ALQ.value, ["coco@gmail.com", "cacho@coco.com"])
+from bind_sdk.requests_payload.transfer_payload import TransferPayload
+
+# tpl = TransferPayload(
+#     "coco1",
+#     "ELBARBACVU",
+#     Currency.ARS.value,
+#     1000.21,
+#     "taest",
+#     Concept.ALQ.value,
+#     ["coco@gmail.com", "cacho@coco.com"],
+# )
 # print(tpl.to_json())
-# tpl = TransferPayload("coco1", "3220001801000020816200", Currency.ARS.value, 1000.21, "taest", Concept.CUO.value, ["coco@gmail.com", "cacho@coco.com"])
+# tpl = TransferPayload(
+#     "coco1",
+#     "3220001801000020816200",
+#     Currency.ARS.value,
+#     1000.21,
+#     "taest",
+#     Concept.CUO.value,
+#     ["coco@gmail.com", "cacho@coco.com"],
+# )
 # print(tpl.to_json())
 
-# print(sdk.send_transfer(tpl.to_json(), "21-1-99999-4-6"))
+# print(sdk.send_transfer(tpl, "21-1-99999-4-6"))
+dbpl = DebinPayload("origin_id-100", "ELBARBA", "ARS", 100, "VAR", 36)
+sdk = Sdk()
+# print(sdk.send_debin(dbpl, "21-1-99999-4-6"))
+from bind_sdk.options.status import Status
+
+# print(sdk.get_debins_by_status(Status.PENDING.value, "21-1-99999-4-6"))

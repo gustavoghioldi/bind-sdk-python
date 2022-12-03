@@ -1,8 +1,7 @@
-from ..options.currency import Currency
-from ..helpers.is_alias import is_alias
+from ..requests_payload.base_payload import BasePayload
 
 
-class TransferPayload:
+class TransferPayload(BasePayload):
     def __init__(
         self,
         origin_id: str,
@@ -14,18 +13,10 @@ class TransferPayload:
         emails: list = list(),
     ) -> None:
         self.origin_id = origin_id
-        self.to = self.__to(to)
+        self.to = self._to(to)
+        self.value = self._value(currency, amount)
         self.currency = currency
         self.amount = amount
         self.description = description
         self.concept = concept
         self.emails = emails
-
-    def __to(self, to: str) -> bool:
-        if is_alias(to):
-            return {"label": to}
-        else:
-            return {"cbu": to}
-
-    def to_json(self):
-        return self.__dict__
