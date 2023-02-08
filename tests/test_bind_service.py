@@ -60,7 +60,7 @@ from bind_sdk.requests_payload.transfer_payload import TransferPayload
 # print(sdk.send_transfer(tpl, "21-1-99999-4-6"))
 dbpl = DebinPayload("origin_id-100", "ELBARBA", "ARS", 100, "VAR", 36)
 sdk = Sdk()
-# print(sdk.send_debin(dbpl, "21-1-99999-4-6"))
+print(sdk.send_debin(dbpl, "21-1-99999-4-6"))
 from bind_sdk.options.status import Status
 
 # print(sdk.get_debins_by_status(Status.PENDING.value, "21-1-99999-4-6"))

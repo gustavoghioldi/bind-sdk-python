@@ -13,3 +13,8 @@ class TestIntegration(unittest.TestCase):
         sdk = Sdk()
         t = sdk.get_transfer("1-31252804-015114433092974-0", "21-1-99999-4-6")
         self.assertTrue(type(t) == dict)
+
+    def test_set_seller_account(self):
+        sdk = Sdk()
+        t = sdk.set_seller_account("21-1-99999-4-6")
+        self.assertTrue(type(t) == dict)

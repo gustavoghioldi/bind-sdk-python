@@ -108,3 +108,12 @@ class Sdk:
             BANK_ID,
             VIEW_ID,
         )
+
+    def set_seller_account(self, account_id: str) -> dict:
+        return BindService.setSellerAccount(
+            account_id,
+            str(self.login()),
+            BIND_END_POINT,
+            BANK_ID,
+            VIEW_ID,
+        )

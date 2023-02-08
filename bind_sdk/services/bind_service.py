@@ -166,3 +166,17 @@ class BindService:
         headers["obp_status"] = status
         response = requests.request("GET", url, headers=headers)
         return response.json()
+
+    @staticmethod
+    def setSellerAccount(
+        account_id: str,
+        bind_credential: str,
+        bind_endpoint: str,
+        bank_id: int,
+        view_id: str,
+    ):
+        url = f"{bind_endpoint}/banks/{bank_id}/accounts/{account_id}/{view_id}/transaction-request-types/DEBIN"
+        headers["Authorization"] = f"JWT :{bind_credential}"
+        body = {"adhered": True}
+        response = requests.request("PUT", url, json=body, headers=headers)
+        return response.json()

@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="bind-sdk",
-    version="1.0.0-alfa",
+    version="1.0.0",
     author="Gustavo Ghioldi",
     author_email="gustavoghioldi@gmail.com",
     description="Easy integration with BIND Argentina",
